@@ -1,14 +1,11 @@
-from pymysql import connect,cursors
+from pymysql import *
 
 class Mysql_Stu(object):
     def __init__(self):
         self.conn = connect(host = "localhost", port = 3306,
-                    user = 'root', password = 'qwe123456',
-                    database = 'Student',
-                    cursorclass = cursors.DictCursor,
-                    charset = 'utf8')
-
-
+                            user = 'root', password = 'qwe123456',
+                            database = 'Student', charset = 'utf8',
+                            cursorclass=cursors.DictCursor) 
         self.csr = self.conn.cursor()
 
     def __del__(self):
