@@ -1,0 +1,6 @@
+CREATE TABLE `stus` (
+  `P_ID` varchar(20) NOT NULL,
+  `Stu_Name` varchar(20) NOT NULL,
+  `Check_Time` int(10) unsigned NOT NULL DEFAULT '0',
+  UNIQUE KEY `P_ID` (`P_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
