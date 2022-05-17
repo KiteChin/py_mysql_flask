@@ -1,8 +1,14 @@
-from pymysql import connect
+from pymysql import connect,cursors
 
 class Mysql_Stu(object):
     def __init__(self):
-        self.conn = connect(host = "localhost", port = 3306, user = 'root', password = 'qwe123456', database = 'Student', charset = 'utf8')
+        self.conn = connect(host = "localhost", port = 3306,
+                    user = 'root', password = 'qwe123456',
+                    database = 'Student',
+                    cursorclass = cursors.DictCursor,
+                    charset = 'utf8')
+
+
         self.csr = self.conn.cursor()
 
     def __del__(self):
@@ -56,12 +62,12 @@ class Mysql_Stu(object):
                 self.add_brands()
             else:
                 print("error,please try again")
-    def ADD(self, P_ID, Stu_ID, Stu_Name, Stu_Class):
-        sql = """insert into stus values("%s","%s","%s","%s",default,default)""" % (P_ID, Stu_ID, Stu_Name, Stu_Class)
+    def ADD(self, P_ID, Stu_Name):
+        sql = """insert into stus values("%s","%s",default,default)""" % (P_ID, Stu_Name)
         self.csr.execute(sql)
         self.conn.commit()
 
-    def QUREY(self):
+    def QUERY(self):
         sql = "select * from stus;"
         self.csr.execute(sql)
         return self.csr.fetchall()
@@ -71,13 +77,13 @@ class Mysql_Stu(object):
         self.csr.execute(sql)
         self.conn.commit()
 
-    def CHECK(self, P_ID, time):
-        sql = "update stus set Check_St=1, Check_Time=%d where P_ID=%s" %(time, P_ID)
+    def CHECK(self, P_ID, Temperature, time):
+        sql = "update stus set Temperature=%s, Check_Time=%d where P_ID=%s" %(Temperature, time, P_ID)
         self.csr.execute(sql)
         self.conn.commit()
 
     def INIT(self):
-        sql = "update stus set Check_St=0, Check_Time=0"
+        sql = "update stus set Temperature=0, Check_Time=0"
         self.csr.execute(sql)
         self.conn.commit()
 

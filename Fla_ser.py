@@ -9,26 +9,25 @@ def INIT():
     stu.INIT()
     return "INIT FINISH"
 
-@app.route("/Stu/ADD/<P_ID>/<Stu_ID>/<Stu_Name>/<Stu_Class>")
-def ADD(P_ID,Stu_ID,Stu_Name,Stu_Class):
+@app.route("/Stu/ADD/<P_ID>/<Stu_Name>")
+def ADD(P_ID,Stu_Name):
     print(P_ID)
-    print(Stu_ID)
     print(Stu_Name)
-    print(Stu_Class)
-    stu.ADD(P_ID, Stu_ID, Stu_Name, Stu_Class)
+    stu.ADD(P_ID, Stu_Name)
     return "ADD FINISH"
 
-@app.route("/Stu/QUREY")
-def QUREY():
-    print(sql_all)
-    sql_all = stu.QUREY()
+@app.route("/Stu/QUERY")
+def QUERY():
+    sql_all = stu.QUERY()
     sql_all = str(sql_all)
+    print(type(sql_all[0]))
     return sql_all
 
-@app.route("/Stu/CHECK/<P_ID>")
-def CHECK(P_ID):
+@app.route("/Stu/CHECK/<P_ID>/<Temperature>")
+def CHECK(P_ID, Temperature):
     print(P_ID)
-    stu.CHECK(P_ID,int(time.time()))
+    print(Temperature)
+    stu.CHECK(P_ID,Temperature, int(time.time()))
     return "CHECK"
 
 @app.route("/Stu/DELETE/<P_ID>")
