@@ -80,7 +80,7 @@ class Mysql_Stu(object):
         self.conn.commit()
 
     def INIT(self):
-        sql = "update stus set Temperature=0, Check_Time=0"
+        sql = "update stus set Temperature=00.00, Check_Time=0"
         self.csr.execute(sql)
         self.conn.commit()
 

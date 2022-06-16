@@ -1,9 +1,10 @@
-from flask import Flask,request
+from flask import Flask,request,jsonify
 from flask_cors import CORS
 from werkzeug.exceptions import HTTPException
 from mysql_stu import *
 import time
 import chardet
+import json
 from urllib.parse import unquote
 
 app = Flask(__name__)
@@ -44,6 +45,11 @@ def Detect(Stu_Name):
 def ADD(P_ID,Stu_Name):
     if not is_number(P_ID):
         return "param error"
+    #print(Stu_Name)
+    #temp = Stu_Name.decode('gb2312')
+    #print(temp)
+    #Stu_Name = temp.encode('utf-8')
+    #print(Stu_Name)
 
     stu = Mysql_Stu()
     stu.ADD(P_ID, Stu_Name)
@@ -73,6 +79,10 @@ def DELETE(P_ID):
     stu = Mysql_Stu()
     stu.DELETE(P_ID)
     return "DELETE"
+
+@app.route("/Stu/time")
+def GetCurrentTime():
+    return str(int(time.time()))
 
 if __name__ == "__main__":
 #    stu = Mysql_Stu()
